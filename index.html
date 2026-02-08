@@ -29,6 +29,9 @@
       box-shadow: 0 0 45px rgba(255,77,109,0.45);
       animation: heartbeat 2s infinite;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     @keyframes heartbeat {
@@ -49,13 +52,21 @@
     }
 
     .valentine {
+      /* same style as h1 */
+      font-family: 'Dancing Script', cursive;
+      font-weight: 600;
+      font-size: 2rem;
+      color: #b33a5c;
+      margin-bottom: 20px;
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 1s;
     }
 
     .confirmText {
-      font-style: italic;
+      font-weight: 700;
+      font-style: normal;
+      font-size: 1.8rem;
       margin-top: 20px;
       margin-bottom: 25px;
     }
@@ -64,20 +75,31 @@
       to { opacity: 1; }
     }
 
+    /* Buttons container for row layout */
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
+
     button {
       font-size: 1.2rem;
       padding: 12px 28px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      margin: 10px;
+      flex: 1 1 auto;
+      min-width: 100px;
       position: relative;
       z-index: 10;
+      transition: transform 0.2s;
     }
 
     button:hover {
       transform: scale(1.1);
-      transition: transform 0.2s;
     }
 
     .yes {
@@ -87,13 +109,11 @@
 
     .no {
       background: #eee;
-      position: absolute;
-      z-index: 20;
-      top: 10px;
-      right: 10px;
       border-radius: 30px;
       padding: 10px 16px;
       user-select: none;
+      position: relative; /* no absolute now */
+      z-index: 20;
     }
 
     .heart {
@@ -135,8 +155,11 @@
     Will you be my Valentine? 💘
   </div>
 
-  <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
-  <button class="no" id="noBtn">No 🙃</button>
+  <!-- Buttons row for first page -->
+  <div class="btn-row" id="firstBtnRow">
+    <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
+    <button class="no" id="noBtn">No 🙃</button>
+  </div>
 
   <div class="letter" id="loveLetter">
     You are my favorite thought,<br>
@@ -149,6 +172,12 @@
     Are you sure you wanna be my Valentine? 💌
   </p>
 
+  <!-- Buttons row for second page -->
+  <div class="btn-row" id="secondBtnRow" style="display:none;">
+    <button class="yes" id="yesBtn2" onclick="yesClick()">Yes, forever 💍</button>
+    <button class="no" id="noBtn2">No 🙃</button>
+  </div>
+
   <div class="finalMessage" id="finalMessage">
     I LOVE YOU 💖💍
   </div>
@@ -160,57 +189,53 @@
   const greeting = document.getElementById("greeting");
   const description = document.getElementById("description");
   const valentine = document.getElementById("valentineText");
+
   const loveLetter = document.getElementById("loveLetter");
   const finalMessage = document.getElementById("finalMessage");
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
+
+  const firstBtnRow = document.getElementById("firstBtnRow");
+  const secondBtnRow = document.getElementById("secondBtnRow");
+
   const confirmText = document.getElementById("confirmText");
 
-  noBtn.addEventListener("mouseover", moveButton);
-  noBtn.addEventListener("touchstart", moveButton);
+  const noBtn1 = document.getElementById("noBtn");
+  const noBtn2 = document.getElementById("noBtn2");
+
+  // Make both no buttons run away
+  noBtn1.addEventListener("mouseover", moveButton);
+  noBtn1.addEventListener("touchstart", moveButton);
+
+  noBtn2.addEventListener("mouseover", moveButton2);
+  noBtn2.addEventListener("touchstart", moveButton2);
 
   function moveButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    const x = Math.random() * (firstBtnRow.offsetWidth - noBtn1.offsetWidth);
+    noBtn1.style.transform = `translateX(${x}px)`;
   }
-
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = "-20px";
-    heart.style.animation = "floatUp 6s linear";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+  function moveButton2() {
+    const x = Math.random() * (secondBtnRow.offsetWidth - noBtn2.offsetWidth);
+    noBtn2.style.transform = `translateX(${x}px)`;
   }
-
-  setInterval(createHeart, 400);
 
   function yesClick() {
     yesCount++;
 
     if (yesCount === 1) {
-      // Hide initial greeting, description, valentine text
+      // Hide first page texts and buttons
       greeting.style.display = "none";
       description.style.display = "none";
       valentine.style.display = "none";
+      firstBtnRow.style.display = "none";
 
-      // Show love letter and confirm text
+      // Show love letter, confirm text, second buttons row
       loveLetter.style.display = "block";
       confirmText.style.display = "block";
-
-      // Keep Yes button visible and No button floating
-      noBtn.style.display = "block";
-
+      secondBtnRow.style.display = "flex";
     } else if (yesCount === 2) {
       // Hide everything except final message
       loveLetter.style.display = "none";
       confirmText.style.display = "none";
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
+      secondBtnRow.style.display = "none";
       finalMessage.style.display = "block";
     }
   }
