@@ -28,6 +28,7 @@
       max-width: 380px;
       box-shadow: 0 0 45px rgba(255,77,109,0.45);
       animation: heartbeat 2s infinite;
+      position: relative;
     }
 
     @keyframes heartbeat {
@@ -38,17 +39,25 @@
     h1 {
       color: #b33a5c;
       font-size: 2rem;
+      margin-bottom: 10px;
     }
 
-    p, .valentine {
+    p, .valentine, .confirmText {
       font-size: 1.4rem;
       color: #b33a5c;
+      margin: 0 0 15px 0;
     }
 
     .valentine {
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 1s;
+    }
+
+    .confirmText {
+      font-style: italic;
+      margin-top: 20px;
+      margin-bottom: 25px;
     }
 
     @keyframes fadeIn {
@@ -62,6 +71,13 @@
       border-radius: 30px;
       cursor: pointer;
       margin: 10px;
+      position: relative;
+      z-index: 10;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s;
     }
 
     .yes {
@@ -72,23 +88,30 @@
     .no {
       background: #eee;
       position: absolute;
+      z-index: 20;
+      top: 10px;
+      right: 10px;
+      border-radius: 30px;
+      padding: 10px 16px;
+      user-select: none;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
     }
 
     .letter, .finalMessage {
       display: none;
       font-size: 1.5rem;
       color: #b33a5c;
-      margin-top: 15px;
+      margin-bottom: 15px;
+      white-space: pre-line;
     }
 
     .finalMessage {
       font-size: 2rem;
       font-weight: bold;
-    }
-
-    .heart {
-      position: absolute;
-      font-size: 24px;
     }
   </style>
 </head>
@@ -122,6 +145,10 @@
     I promise to love you — always 😘
   </div>
 
+  <p class="confirmText" id="confirmText" style="display:none;">
+    Are you sure you wanna be my Valentine? 💌
+  </p>
+
   <div class="finalMessage" id="finalMessage">
     I LOVE YOU 💖💍
   </div>
@@ -137,13 +164,16 @@
   const finalMessage = document.getElementById("finalMessage");
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
+  const confirmText = document.getElementById("confirmText");
 
   noBtn.addEventListener("mouseover", moveButton);
   noBtn.addEventListener("touchstart", moveButton);
 
   function moveButton() {
-    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
   }
 
   function createHeart() {
@@ -163,19 +193,24 @@
     yesCount++;
 
     if (yesCount === 1) {
-      // HIDE TOP TEXTS COMPLETELY
+      // Hide initial greeting, description, valentine text
       greeting.style.display = "none";
       description.style.display = "none";
       valentine.style.display = "none";
-      noBtn.style.display = "none";
 
-      // SHOW LOVE LETTER
+      // Show love letter and confirm text
       loveLetter.style.display = "block";
-    }
+      confirmText.style.display = "block";
 
-    else if (yesCount === 2) {
+      // Keep Yes button visible and No button floating
+      noBtn.style.display = "block";
+
+    } else if (yesCount === 2) {
+      // Hide everything except final message
       loveLetter.style.display = "none";
+      confirmText.style.display = "none";
       yesBtn.style.display = "none";
+      noBtn.style.display = "none";
       finalMessage.style.display = "block";
     }
   }
@@ -183,4 +218,3 @@
 
 </body>
 </html>
-
