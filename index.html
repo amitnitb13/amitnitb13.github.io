@@ -31,7 +31,6 @@
       box-shadow: 0 0 45px rgba(255,77,109,0.45);
       animation: heartbeat 2s infinite;
       z-index: 2;
-      position: relative;
     }
 
     @keyframes heartbeat {
@@ -75,16 +74,10 @@
       position: absolute;
     }
 
-    .heart, .ring, .confetti {
+    .heart, .confetti {
       position: absolute;
       font-size: 24px;
       opacity: 0.9;
-    }
-
-    .orbit-ring {
-      font-size: 36px;
-      z-index: 10;
-      pointer-events: none;
     }
 
     .letter, .finalMessage {
@@ -109,7 +102,7 @@
   </audio>
 
   <div class="card" id="card">
-    <h1>My Dearest ANURADHA 💖</h1>
+    <h1>Hey ANURADHA 💖</h1>
 
     <p>
       On this Propose Day,<br>
@@ -173,42 +166,16 @@
 
     setInterval(createHeart, 350);
 
-    // 💍 Orbit ring animation
-    let angle = 0;
-    const orbitRadius = 100; // px
-    let ringDiv;
-
-    function createOrbitRing() {
-      if (!ringDiv) {
-        ringDiv = document.createElement("div");
-        ringDiv.className = "orbit-ring";
-        ringDiv.innerHTML = "💍";
-        document.body.appendChild(ringDiv);
-      }
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.left + rect.width/2;
-      const centerY = rect.top + rect.height/2;
-      angle += 0.03; // speed
-      const x = centerX + orbitRadius * Math.cos(angle) - 18; // 18 = half ring size
-      const y = centerY + orbitRadius * Math.sin(angle) - 18;
-      ringDiv.style.left = x + "px";
-      ringDiv.style.top = y + "px";
-      requestAnimationFrame(createOrbitRing);
-    }
-
     // 🌟 Click Yes action
     function yesClick() {
       loveLetter.style.display = "block";
       card.style.background = "rgba(255,240,245,0.95)";
       document.body.style.background = "linear-gradient(135deg, #ff9a9e, #ffdde1)";
 
-      // Confetti + floating rings
+      // Confetti + floating kisses
       for (let i=0;i<50;i++){
         setTimeout(createConfetti, i*50);
       }
-
-      // Start orbit ring
-      createOrbitRing();
 
       // Show final message after 2 seconds
       setTimeout(() => {
