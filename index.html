@@ -50,7 +50,7 @@
       margin-bottom: 25px;
       opacity: 0;
       animation: fadeIn 2s forwards;
-      animation-delay: 1s; /* Wait 1 second before fading in */
+      animation-delay: 1s; /* fade in after 1 second */
     }
 
     @keyframes fadeIn {
@@ -144,6 +144,9 @@
     const loveLetter = document.getElementById("loveLetter");
     const finalMessage = document.getElementById("finalMessage");
     const card = document.getElementById("card");
+    const valentineText = document.querySelector(".valentine");
+    const description = document.querySelector("p");
+    const yesBtn = document.querySelector(".yes");
 
     // 😈 No button runs away
     noBtn.addEventListener("mouseover", moveButton);
@@ -193,7 +196,12 @@
 
       // Show final message after 2 seconds
       setTimeout(() => {
-        card.innerHTML = `<div class="finalMessage">I LOVE YOU, ANURADHA 💖💍</div>`;
+        loveLetter.style.display = "none";   // hide letter
+        valentineText.style.display = "none"; // hide Valentine line
+        description.style.display = "none";   // hide description
+        yesBtn.style.display = "none";        // hide Yes button
+        noBtn.style.display = "none";         // hide No button
+        finalMessage.style.display = "block"; // show final message
       }, 2500);
     }
   </script>
