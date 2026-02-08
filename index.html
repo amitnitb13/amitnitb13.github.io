@@ -40,25 +40,11 @@
     }
 
     h1 { color: #b33a5c; font-size: 2rem; margin-bottom: 10px; }
-    p, .valentine, .confirmText { font-size: 1.4rem; color: #b33a5c; margin: 0 0 15px 0; }
+    p, .valentine, .confirmText { font-size: 1.4rem; color: #b33a5c; margin-bottom: 15px; }
 
-    .valentine {
-      font-family: 'Dancing Script', cursive;
-      font-weight: 600;
-      font-size: 2rem;
-      color: #b33a5c;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-      animation-delay: 1s;
-    }
+    .valentine { font-size: 2rem; opacity: 0; animation: fadeIn 2s forwards; animation-delay: 1s; }
 
-    .confirmText {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-top: 20px;
-      margin-bottom: 25px;
-    }
+    .confirmText { font-weight: 700; font-size: 1.8rem; margin-top: 20px; margin-bottom: 25px; }
 
     @keyframes fadeIn { to { opacity: 1; } }
 
@@ -100,7 +86,7 @@
       white-space: pre-line;
     }
 
-    .finalMessage { font-size: 2rem; font-weight: bold; }
+    .finalMessage { font-size: 2rem; font-weight: bold; animation: heartbeat 1.2s infinite; }
 
     #signature {
       position: absolute;
@@ -112,6 +98,7 @@
       font-family: 'Dancing Script', cursive;
       user-select: none;
       white-space: nowrap;
+      text-shadow: 0 0 8px rgba(255,77,109,0.6);
     }
   </style>
 </head>
@@ -140,13 +127,6 @@
     <button class="no" id="noBtn">No 🙃</button>
   </div>
 
-  <div class="letter" id="loveLetter">
-    You are my favorite thought,<br>
-    my happiest smile,<br>
-    and my most beautiful dream 💕<br><br>
-    I promise to love you — always 😘
-  </div>
-
   <p class="confirmText" id="confirmText" style="display:none;">
     Are you sure you wanna be my Valentine? 💌
   </p>
@@ -171,15 +151,11 @@
   const valentine = document.getElementById("valentineText");
   const loveLetter = document.getElementById("loveLetter");
   const finalMessage = document.getElementById("finalMessage");
-
   const firstBtnRow = document.getElementById("firstBtnRow");
   const secondBtnRow = document.getElementById("secondBtnRow");
-
   const confirmText = document.getElementById("confirmText");
-
   const noBtn1 = document.getElementById("noBtn");
   const noBtn2 = document.getElementById("noBtn2");
-
   const signature = document.getElementById("signature");
 
   // Make No buttons run away
@@ -199,7 +175,7 @@
 
   // Sprinkle hearts randomly over the final page
   function sprinkleHearts() {
-    for (let i = 0; i < 3; i++) { // 3 hearts at a time
+    for (let i = 0; i < 3; i++) {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
@@ -212,10 +188,10 @@
 
   setInterval(() => {
     if(finalMessage.style.display === "block") sprinkleHearts();
-  }, 400); // sprinkle continuously while final page is visible
+  }, 400);
 
   // Signature typing with hearts
-  function typeSignatureWithHearts(text, element, delay = 350) {
+  function typeSignatureWithHearts(text, element, delay = 300) {
     let index = 0;
     element.textContent = "";
     element.style.right = "-200px";
@@ -223,7 +199,6 @@
     const interval = setInterval(() => {
       element.textContent += text.charAt(index);
 
-      // Small heart near letter
       const rect = element.getBoundingClientRect();
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -254,16 +229,15 @@
       valentine.style.display = "none";
       firstBtnRow.style.display = "none";
 
-      loveLetter.style.display = "block";
       confirmText.style.display = "block";
       secondBtnRow.style.display = "flex";
     } else if (yesCount === 2) {
-      loveLetter.style.display = "none";
       confirmText.style.display = "none";
       secondBtnRow.style.display = "none";
       finalMessage.style.display = "block";
 
-      typeSignatureWithHearts("Yours, Amit", signature, 350);
+      // Type signature immediately as final page appears
+      typeSignatureWithHearts("Yours, Amit", signature, 300);
     }
   }
 </script>
