@@ -22,7 +22,7 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 228, 235, 0.95); /* softer pinkish-white */
       padding: 35px 25px;
       border-radius: 25px;
       text-align: center;
@@ -39,14 +39,14 @@
     }
 
     h1 {
-      color: #ff2e63;
+      color: #b33a5c; /* darker pink/maroon */
       font-size: 2rem;
       margin-bottom: 10px;
     }
 
     .valentine {
       font-size: 1.5rem;
-      color: #ffd1dc; /* 💖 bright pink for visibility */
+      color: #b33a5c; /* darker pink/maroon */
       margin: 15px 0;
       opacity: 0;
       animation: fadeIn 2s forwards;
@@ -60,7 +60,7 @@
     p {
       font-size: 1.25rem;
       margin-bottom: 25px;
-      color: #ffe6e6; /* light text for maroon background */
+      color: #b33a5c; /* darker pink/maroon */
     }
 
     button {
@@ -97,7 +97,7 @@
       display: none;
       margin-top: 15px;
       font-size: 1.3rem;
-      color: #ffd1dc; /* bright pink for letter and final message */
+      color: #b33a5c; /* darker pink/maroon */
     }
 
     .finalMessage {
@@ -193,7 +193,7 @@
 
       if (yesClickCount === 1) {
         loveLetter.style.display = "block";
-        card.style.background = "rgba(255,240,245,0.95)";
+        card.style.background = "rgba(255, 228, 235, 0.95)";
         document.body.style.background = "linear-gradient(135deg, #800000, #a52a2a)";
 
         for (let i=0; i<30; i++){
