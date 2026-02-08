@@ -112,7 +112,7 @@
       border-radius: 30px;
       padding: 10px 16px;
       user-select: none;
-      position: relative; /* no absolute now */
+      position: relative;
       z-index: 20;
     }
 
@@ -134,7 +134,7 @@
       font-weight: bold;
     }
 
-    /* New: Yours, Amit text style */
+    /* Signature container */
     #signature {
       position: absolute;
       bottom: 15px;
@@ -143,14 +143,8 @@
       font-weight: 600;
       color: #b33a5c;
       font-family: 'Dancing Script', cursive;
-      opacity: 0;
-      animation: fadeInSignature 5s forwards;
-      animation-delay: 1s;
       user-select: none;
-    }
-
-    @keyframes fadeInSignature {
-      to { opacity: 1; }
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -201,7 +195,7 @@
     I LOVE YOU 💖💍
   </div>
 
-  <div id="signature">Yours, Amit</div>
+  <div id="signature"></div>
 </div>
 
 <script>
@@ -224,9 +218,6 @@
 
   const signature = document.getElementById("signature");
 
-  // Hide signature initially
-  signature.style.opacity = 0;
-
   // Make both no buttons run away
   noBtn1.addEventListener("mouseover", moveButton);
   noBtn1.addEventListener("touchstart", moveButton);
@@ -241,6 +232,17 @@
   function moveButton2() {
     const x = Math.random() * (secondBtnRow.offsetWidth - noBtn2.offsetWidth);
     noBtn2.style.transform = `translateX(${x}px)`;
+  }
+
+  // Typing effect function for signature
+  function typeSignature(text, element, delay = 200) {
+    let index = 0;
+    element.textContent = "";
+    const interval = setInterval(() => {
+      element.textContent += text.charAt(index);
+      index++;
+      if(index >= text.length) clearInterval(interval);
+    }, delay);
   }
 
   function yesClick() {
@@ -264,14 +266,11 @@
       secondBtnRow.style.display = "none";
       finalMessage.style.display = "block";
 
-      // Fade in signature slowly
-      signature.style.opacity = 0;
-      signature.style.animation = 'fadeInSignature 5s forwards';
-      signature.style.animationDelay = '1s';
+      // Start typing "Yours, Amit" at bottom right
+      typeSignature("Yours, Amit", signature, 350);
     }
   }
 </script>
 
 </body>
 </html>
-
