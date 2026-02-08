@@ -115,7 +115,7 @@
   </audio>
 
   <div class="card" id="card">
-    <h1>Hey ANURADHA 💖</h1>
+    <h1>Hey ANNU 💖</h1>
     <div class="valentine">Will you be my Valentine? 💘</div>
 
     <p>
@@ -135,11 +135,13 @@
     </div>
 
     <div class="finalMessage" id="finalMessage">
-      I LOVE YOU, ANNU 💖💍
+      I LOVE YOU..... 💖💍
     </div>
   </div>
 
   <script>
+    let yesClickCount = 0; // track number of Yes clicks
+
     const noBtn = document.getElementById("noBtn");
     const loveLetter = document.getElementById("loveLetter");
     const finalMessage = document.getElementById("finalMessage");
@@ -185,24 +187,33 @@
 
     // 🌟 Click Yes action
     function yesClick() {
-      loveLetter.style.display = "block";
-      card.style.background = "rgba(255,240,245,0.95)";
-      document.body.style.background = "linear-gradient(135deg, #ff9a9e, #ffdde1)";
+      yesClickCount++;
 
-      // Confetti + floating kisses
-      for (let i=0;i<50;i++){
-        setTimeout(createConfetti, i*50);
+      if (yesClickCount === 1) {
+        // First click → show love letter
+        loveLetter.style.display = "block";
+        card.style.background = "rgba(255,240,245,0.95)";
+        document.body.style.background = "linear-gradient(135deg, #ff9a9e, #ffdde1)";
+        
+        // Confetti + floating kisses for first click
+        for (let i=0; i<30; i++){
+          setTimeout(createConfetti, i*50);
+        }
+
+      } else if (yesClickCount === 2) {
+        // Second click → hide other elements, show final message
+        loveLetter.style.display = "none";
+        valentineText.style.display = "none";
+        description.style.display = "none";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        finalMessage.style.display = "block";
+
+        // Extra confetti for final reveal
+        for (let i=0; i<50; i++){
+          setTimeout(createConfetti, i*50);
+        }
       }
-
-      // Show final message after 2 seconds
-      setTimeout(() => {
-        loveLetter.style.display = "none";   // hide letter
-        valentineText.style.display = "none"; // hide Valentine line
-        description.style.display = "none";   // hide description
-        yesBtn.style.display = "none";        // hide Yes button
-        noBtn.style.display = "none";         // hide No button
-        finalMessage.style.display = "block"; // show final message
-      }, 2500);
     }
   </script>
 
