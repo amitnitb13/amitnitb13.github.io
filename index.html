@@ -3,129 +3,163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine 💖</title>
+  <title>For ANURADHA 💖</title>
+
+  <!-- Handwritten font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(135deg, #ffafbd, #ffc3a0);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .card {
-      background: white;
-      padding: 30px 20px;
-      border-radius: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 35px 25px;
+      border-radius: 25px;
       text-align: center;
       width: 90%;
-      max-width: 350px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      max-width: 380px;
+      box-shadow: 0 0 45px rgba(255,77,109,0.45);
+      animation: heartbeat 2s infinite;
       z-index: 2;
     }
 
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
     h1 {
-      color: #ff4d6d;
-      font-size: 1.8rem;
+      color: #ff2e63;
+      font-size: 2rem;
       margin-bottom: 10px;
     }
 
     p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+      font-size: 1.25rem;
+      margin-bottom: 25px;
+      color: #444;
     }
 
     button {
-      font-size: 1.1rem;
-      padding: 12px 25px;
+      font-size: 1.2rem;
+      padding: 12px 28px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
       margin: 10px;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
     }
 
     .yes {
-      background: #ff4d6d;
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
       color: white;
     }
 
     .no {
-      background: #ddd;
+      background: #eee;
       position: absolute;
     }
 
-    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
-      font-size: 20px;
+      font-size: 24px;
       animation: floatUp linear infinite;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .letter {
+      display: none;
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #ff2e63;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 💖 CHANGE NAME HERE -->
-  <script>
-    const name = "ANURADHA 💕"; // ← replace with their name
-  </script>
+  <!-- 🎶 Soft romantic music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_4c8c8a4f61.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="card">
-    <h1>Hey <span id="name"></span> 🥰</h1>
-    <p>Will you be my Valentine? 💘</p>
-    <button class="yes" onclick="yesClick()">Yes 💖</button>
+    <h1>My Dearest ANURADHA 💖</h1>
+
+    <p>
+      On this Propose Day,<br>
+      I just want you to know…<br>
+      my heart chose you long ago 🌹
+    </p>
+
+    <button class="yes" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn">No 🙃</button>
+
+    <div class="letter" id="loveLetter">
+      You are my favorite thought, my happiest smile,<br>
+      and my most beautiful dream 💕<br><br>
+      I promise to stand by you,<br>
+      laugh with you, and love you — always 😘💖
+    </div>
   </div>
 
   <script>
-    document.getElementById("name").textContent = name;
-
     function yesClick() {
-      alert("YAY!!! 💖🥰 I knew it!");
+      document.getElementById("loveLetter").style.display = "block";
+      for (let i = 0; i < 30; i++) createConfetti();
     }
 
-    // 😈 No button runs away
     const noBtn = document.getElementById("noBtn");
     noBtn.addEventListener("mouseover", moveButton);
     noBtn.addEventListener("touchstart", moveButton);
 
     function moveButton() {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
     }
 
-    // 💖 Floating hearts
+    function createConfetti() {
+      const emoji = document.createElement("div");
+      emoji.className = "heart";
+      emoji.innerHTML = Math.random() > 0.5 ? "🎉" : "😘";
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
       document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 6000);
+      setTimeout(() => heart.remove(), 7000);
     }
 
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 350);
   </script>
 
 </body>
