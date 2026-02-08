@@ -44,6 +44,19 @@
       margin-bottom: 10px;
     }
 
+    .valentine {
+      font-size: 1.5rem;
+      color: #ff4d6d;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+      animation-delay: 1s; /* Wait 1 second before fading in */
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
     p {
       font-size: 1.25rem;
       margin-bottom: 25px;
@@ -103,6 +116,7 @@
 
   <div class="card" id="card">
     <h1>Hey ANURADHA 💖</h1>
+    <div class="valentine">Will you be my Valentine? 💘</div>
 
     <p>
       On this Propose Day,<br>
@@ -121,7 +135,7 @@
     </div>
 
     <div class="finalMessage" id="finalMessage">
-      I LOVE YOU, ANURADHA 💖💍
+      I LOVE YOU, ANNU 💖💍
     </div>
   </div>
 
