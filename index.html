@@ -47,7 +47,7 @@
     .valentine {
       font-size: 1.5rem;
       color: #ff4d6d;
-      margin-bottom: 25px;
+      margin: 15px 0;
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 1s; /* fade in after 1 second */
@@ -115,16 +115,18 @@
   </audio>
 
   <div class="card" id="card">
-    <h1>Hey ANURADHA 💖</h1>
-    <div class="valentine">Will you be my Valentine? 💘</div>
+    <h1 id="greeting">Hey ANURADHA 💖</h1>
 
-    <p>
+    <p id="description">
       On this Propose Day,<br>
       I just want you to know…<br>
       my heart chose you long ago 🌹
     </p>
 
-    <button class="yes" onclick="yesClick()">Yes, forever 💍</button>
+    <!-- 💘 Moved above Yes button -->
+    <div class="valentine">Will you be my Valentine? 💘</div>
+
+    <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn">No 🙃</button>
 
     <div class="letter" id="loveLetter">
@@ -147,8 +149,9 @@
     const finalMessage = document.getElementById("finalMessage");
     const card = document.getElementById("card");
     const valentineText = document.querySelector(".valentine");
-    const description = document.querySelector("p");
-    const yesBtn = document.querySelector(".yes");
+    const description = document.getElementById("description");
+    const yesBtn = document.getElementById("yesBtn");
+    const greeting = document.getElementById("greeting");
 
     // 😈 No button runs away
     noBtn.addEventListener("mouseover", moveButton);
@@ -207,6 +210,7 @@
         description.style.display = "none";
         yesBtn.style.display = "none";
         noBtn.style.display = "none";
+        greeting.style.display = "none"; // <-- hide "Hey ANURADHA"
         finalMessage.style.display = "block";
 
         // Extra confetti for final reveal
@@ -219,3 +223,4 @@
 
 </body>
 </html>
+
