@@ -40,111 +40,81 @@
     }
 
     h1 { color: #b33a5c; font-size: 2rem; margin-bottom: 10px; }
-    p, .valentine, .confirmText { font-size: 1.4rem; color: #b33a5c; margin: 0 0 15px 0; }
+    p, .valentine, .confirmText { font-size: 1.4rem; color: #b33a5c; margin-bottom: 15px; }
 
     .valentine {
-      font-family: 'Dancing Script', cursive;
-      font-weight: 600;
       font-size: 2rem;
-      color: #b33a5c;
-      margin-bottom: 20px;
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 1s;
     }
 
-    .confirmText {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-top: 20px;
-      margin-bottom: 25px;
-    }
-
     @keyframes fadeIn { to { opacity: 1; } }
 
-    .btn-row { display: flex; justify-content: center; gap: 15px; width: 100%; max-width: 280px; margin-bottom: 20px; }
+    .btn-row {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
 
     button {
       font-size: 1.2rem;
       padding: 12px 28px;
-      border: none;
       border-radius: 30px;
+      border: none;
       cursor: pointer;
-      flex: 1 1 auto;
-      min-width: 100px;
-      position: relative;
-      z-index: 10;
-      transition: transform 0.2s;
-    }
-    button:hover { transform: scale(1.1); }
-
-    .yes { background: linear-gradient(135deg, #ff4d6d, #ff758f); color: white; }
-    .no { background: #eee; border-radius: 30px; padding: 10px 16px; user-select: none; position: relative; z-index: 20; }
-
-    .heart {
-      position: absolute;
-      font-size: 18px;
-      animation: floatUp 2s linear forwards;
-      opacity: 0.8;
-    }
-    @keyframes floatUp {
-      from { transform: translateY(0) scale(1); opacity: 1; }
-      to { transform: translateY(-60px) scale(1.2); opacity: 0; }
+      flex: 1;
     }
 
-    .letter, .finalMessage {
-      display: none;
-      font-size: 1.5rem;
-      color: #b33a5c;
-      margin-bottom: 15px;
-      white-space: pre-line;
-    }
+    .yes { background: linear-gradient(135deg,#ff4d6d,#ff758f); color:white; }
+    .no { background:#eee; }
 
-    .finalMessage { font-size: 2rem; font-weight: bold; }
+    .finalMessage {
+      display:none;
+      font-size:2rem;
+      font-weight:bold;
+      color:#b33a5c;
+    }
 
     #signature {
-      position: absolute;
-      bottom: 15px;
-      right: -200px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #b33a5c;
-      font-family: 'Dancing Script', cursive;
-      user-select: none;
-      white-space: nowrap;
+      position:absolute;
+      bottom:15px;
+      right:-220px;
+      font-size:1.3rem;
+      color:#b33a5c;
+      white-space:nowrap;
+    }
+
+    .heart {
+      position:absolute;
+      font-size:18px;
+      animation:floatUp 2s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from { transform:translateY(0); opacity:1; }
+      to { transform:translateY(-60px); opacity:0; }
     }
   </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_4c8c8a4f61.mp3" type="audio/mpeg">
-</audio>
-
-<div class="card" id="card">
+<div class="card">
   <h1 id="greeting">Hey ANURADHA 💖</h1>
 
   <p id="description">
     On this Propose Day,<br>
-    I just want you to know…<br>
     my heart chose you long ago 🌹
   </p>
 
-  <div class="valentine" id="valentineText">
-    Will you be my Valentine? 💘
-  </div>
+  <div class="valentine" id="valentineText">Will you be my Valentine? 💘</div>
 
   <div class="btn-row" id="firstBtnRow">
-    <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
+    <button class="yes" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn">No 🙃</button>
-  </div>
-
-  <div class="letter" id="loveLetter">
-    You are my favorite thought,<br>
-    my happiest smile,<br>
-    and my most beautiful dream 💕<br><br>
-    I promise to love you — always 😘
   </div>
 
   <p class="confirmText" id="confirmText" style="display:none;">
@@ -152,120 +122,54 @@
   </p>
 
   <div class="btn-row" id="secondBtnRow" style="display:none;">
-    <button class="yes" id="yesBtn2" onclick="yesClick()">Yes, forever 💍</button>
+    <button class="yes" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn2">No 🙃</button>
   </div>
 
-  <div class="finalMessage" id="finalMessage">
-    I LOVE YOU 💖💍
-  </div>
-
+  <div class="finalMessage" id="finalMessage">I LOVE YOU 💖💍</div>
   <div id="signature"></div>
 </div>
 
 <script>
-  let yesCount = 0;
+let yesCount = 0;
+const finalMessage = document.getElementById("finalMessage");
+const signature = document.getElementById("signature");
 
-  const greeting = document.getElementById("greeting");
-  const description = document.getElementById("description");
-  const valentine = document.getElementById("valentineText");
-  const loveLetter = document.getElementById("loveLetter");
-  const finalMessage = document.getElementById("finalMessage");
+function sprinkleHearts(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*window.innerWidth+"px";
+  heart.style.top=Math.random()*window.innerHeight+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),2000);
+}
 
-  const firstBtnRow = document.getElementById("firstBtnRow");
-  const secondBtnRow = document.getElementById("secondBtnRow");
+function typeSignature(text){
+  let i=0;
+  signature.textContent="";
+  signature.style.right="-220px";
 
-  const confirmText = document.getElementById("confirmText");
-
-  const noBtn1 = document.getElementById("noBtn");
-  const noBtn2 = document.getElementById("noBtn2");
-
-  const signature = document.getElementById("signature");
-
-  // Make No buttons run away
-  noBtn1.addEventListener("mouseover", moveButton);
-  noBtn1.addEventListener("touchstart", moveButton);
-  noBtn2.addEventListener("mouseover", moveButton2);
-  noBtn2.addEventListener("touchstart", moveButton2);
-
-  function moveButton() {
-    const x = Math.random() * (firstBtnRow.offsetWidth - noBtn1.offsetWidth);
-    noBtn1.style.transform = `translateX(${x}px)`;
-  }
-  function moveButton2() {
-    const x = Math.random() * (secondBtnRow.offsetWidth - noBtn2.offsetWidth);
-    noBtn2.style.transform = `translateX(${x}px)`;
-  }
-
-  // Sprinkle hearts randomly over the final page
-  function sprinkleHearts() {
-    for (let i = 0; i < 3; i++) { // 3 hearts at a time
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = (Math.random() * (window.innerWidth - 20)) + "px";
-      heart.style.top = (Math.random() * (window.innerHeight - 20)) + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 2500);
+  const interval=setInterval(()=>{
+    signature.textContent+=text.charAt(i);
+    sprinkleHearts();
+    signature.style.right=(-220+(i/text.length)*240)+"px";
+    i++;
+    if(i===text.length){
+      signature.style.right="20px";
+      clearInterval(interval);
     }
+  },350);
+}
+
+function yesClick(){
+  yesCount++;
+  if(yesCount===2){
+    finalMessage.style.display="block";
+    setInterval(sprinkleHearts,400);
+    typeSignature("Yours, Amit"); // ✅ starts immediately
   }
-
-  setInterval(() => {
-    if(finalMessage.style.display === "block") sprinkleHearts();
-  }, 400); // sprinkle continuously while final page is visible
-
-  // Signature typing with hearts
-  function typeSignatureWithHearts(text, element, delay = 350) {
-    let index = 0;
-    element.textContent = "";
-    element.style.right = "-200px";
-
-    const interval = setInterval(() => {
-      element.textContent += text.charAt(index);
-
-      // Small heart near letter
-      const rect = element.getBoundingClientRect();
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = (rect.right - 20) + "px";
-      heart.style.top = rect.top + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 2000);
-
-      index++;
-      if(index >= text.length) {
-        clearInterval(interval);
-        element.style.right = "20px";
-      } else {
-        const totalDistance = 220;
-        const step = totalDistance * (index / text.length);
-        element.style.right = (-200 + step) + "px";
-      }
-    }, delay);
-  }
-
-  function yesClick() {
-    yesCount++;
-
-    if (yesCount === 1) {
-      greeting.style.display = "none";
-      description.style.display = "none";
-      valentine.style.display = "none";
-      firstBtnRow.style.display = "none";
-
-      loveLetter.style.display = "block";
-      confirmText.style.display = "block";
-      secondBtnRow.style.display = "flex";
-    } else if (yesCount === 2) {
-      loveLetter.style.display = "none";
-      confirmText.style.display = "none";
-      secondBtnRow.style.display = "none";
-      finalMessage.style.display = "block";
-
-      typeSignatureWithHearts("Yours, Amit", signature, 350);
-    }
-  }
+}
 </script>
 
 </body>
