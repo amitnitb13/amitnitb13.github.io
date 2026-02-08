@@ -52,7 +52,6 @@
     }
 
     .valentine {
-      /* same style as h1 */
       font-family: 'Dancing Script', cursive;
       font-weight: 600;
       font-size: 2rem;
@@ -65,17 +64,13 @@
 
     .confirmText {
       font-weight: 700;
-      font-style: normal;
       font-size: 1.8rem;
       margin-top: 20px;
       margin-bottom: 25px;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
 
-    /* Buttons container for row layout */
     .btn-row {
       display: flex;
       justify-content: center;
@@ -98,14 +93,9 @@
       transition: transform 0.2s;
     }
 
-    button:hover {
-      transform: scale(1.1);
-    }
+    button:hover { transform: scale(1.1); }
 
-    .yes {
-      background: linear-gradient(135deg, #ff4d6d, #ff758f);
-      color: white;
-    }
+    .yes { background: linear-gradient(135deg, #ff4d6d, #ff758f); color: white; }
 
     .no {
       background: #eee;
@@ -116,10 +106,7 @@
       z-index: 20;
     }
 
-    .heart {
-      position: absolute;
-      font-size: 24px;
-    }
+    .heart { position: absolute; font-size: 24px; }
 
     .letter, .finalMessage {
       display: none;
@@ -129,22 +116,19 @@
       white-space: pre-line;
     }
 
-    .finalMessage {
-      font-size: 2rem;
-      font-weight: bold;
-    }
+    .finalMessage { font-size: 2rem; font-weight: bold; }
 
-    /* Signature container */
     #signature {
       position: absolute;
       bottom: 15px;
-      right: 20px;
+      left: -200px;  /* start off screen left */
       font-size: 1.3rem;
       font-weight: 600;
       color: #b33a5c;
       font-family: 'Dancing Script', cursive;
       user-select: none;
       white-space: nowrap;
+      transition: left 0.3s ease-out;
     }
   </style>
 </head>
@@ -168,7 +152,6 @@
     Will you be my Valentine? 💘
   </div>
 
-  <!-- Buttons row for first page -->
   <div class="btn-row" id="firstBtnRow">
     <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn">No 🙃</button>
@@ -185,7 +168,6 @@
     Are you sure you wanna be my Valentine? 💌
   </p>
 
-  <!-- Buttons row for second page -->
   <div class="btn-row" id="secondBtnRow" style="display:none;">
     <button class="yes" id="yesBtn2" onclick="yesClick()">Yes, forever 💍</button>
     <button class="no" id="noBtn2">No 🙃</button>
@@ -204,7 +186,6 @@
   const greeting = document.getElementById("greeting");
   const description = document.getElementById("description");
   const valentine = document.getElementById("valentineText");
-
   const loveLetter = document.getElementById("loveLetter");
   const finalMessage = document.getElementById("finalMessage");
 
@@ -212,16 +193,12 @@
   const secondBtnRow = document.getElementById("secondBtnRow");
 
   const confirmText = document.getElementById("confirmText");
-
   const noBtn1 = document.getElementById("noBtn");
   const noBtn2 = document.getElementById("noBtn2");
-
   const signature = document.getElementById("signature");
 
-  // Make both no buttons run away
   noBtn1.addEventListener("mouseover", moveButton);
   noBtn1.addEventListener("touchstart", moveButton);
-
   noBtn2.addEventListener("mouseover", moveButton2);
   noBtn2.addEventListener("touchstart", moveButton2);
 
@@ -234,14 +211,23 @@
     noBtn2.style.transform = `translateX(${x}px)`;
   }
 
-  // Typing effect function for signature
-  function typeSignature(text, element, delay = 200) {
+  function typeSignatureWithSlide(text, element, delay = 350) {
     let index = 0;
     element.textContent = "";
+    element.style.left = "-200px"; 
+
     const interval = setInterval(() => {
       element.textContent += text.charAt(index);
       index++;
-      if(index >= text.length) clearInterval(interval);
+      if(index >= text.length) {
+        clearInterval(interval);
+        element.style.left = "20px"; // final position bottom right
+        element.style.right = "20px";
+      } else {
+        const totalDistance = 220; 
+        const step = totalDistance * (index / text.length);
+        element.style.left = (-200 + step) + "px";
+      }
     }, delay);
   }
 
@@ -249,25 +235,21 @@
     yesCount++;
 
     if (yesCount === 1) {
-      // Hide first page texts and buttons
       greeting.style.display = "none";
       description.style.display = "none";
       valentine.style.display = "none";
       firstBtnRow.style.display = "none";
 
-      // Show love letter, confirm text, second buttons row
       loveLetter.style.display = "block";
       confirmText.style.display = "block";
       secondBtnRow.style.display = "flex";
     } else if (yesCount === 2) {
-      // Hide everything except final message and signature
       loveLetter.style.display = "none";
       confirmText.style.display = "none";
       secondBtnRow.style.display = "none";
       finalMessage.style.display = "block";
 
-      // Start typing "Yours, Amit" at bottom right
-      typeSignature("Yours, Amit", signature, 350);
+      typeSignatureWithSlide("Yours, Amit", signature, 350);
     }
   }
 </script>
