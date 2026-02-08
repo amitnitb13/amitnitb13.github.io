@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>For ANURADHA 💖</title>
 
-  <!-- Handwritten font -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
   <style>
@@ -14,15 +13,14 @@
       height: 100vh;
       overflow: hidden;
       font-family: 'Dancing Script', cursive;
-      background: linear-gradient(135deg, #800000, #a52a2a, #b22222); /* Maroon gradient */
+      background: linear-gradient(135deg, #800000, #a52a2a, #b22222);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 2s ease;
     }
 
     .card {
-      background: rgba(255, 228, 235, 0.95); /* softer pinkish-white */
+      background: rgba(255,228,235,0.95);
       padding: 35px 25px;
       border-radius: 25px;
       text-align: center;
@@ -30,24 +28,24 @@
       max-width: 380px;
       box-shadow: 0 0 45px rgba(255,77,109,0.45);
       animation: heartbeat 2s infinite;
-      z-index: 2;
     }
 
     @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
+      0%,100% { transform: scale(1); }
       50% { transform: scale(1.04); }
     }
 
     h1 {
-      color: #b33a5c; /* darker pink/maroon */
+      color: #b33a5c;
       font-size: 2rem;
-      margin-bottom: 10px;
+    }
+
+    p, .valentine {
+      font-size: 1.4rem;
+      color: #b33a5c;
     }
 
     .valentine {
-      font-size: 1.5rem;
-      color: #b33a5c; /* darker pink/maroon */
-      margin: 15px 0;
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 1s;
@@ -57,12 +55,6 @@
       to { opacity: 1; }
     }
 
-    p {
-      font-size: 1.25rem;
-      margin-bottom: 25px;
-      color: #b33a5c; /* darker pink/maroon */
-    }
-
     button {
       font-size: 1.2rem;
       padding: 12px 28px;
@@ -70,11 +62,6 @@
       border-radius: 30px;
       cursor: pointer;
       margin: 10px;
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.1);
     }
 
     .yes {
@@ -87,134 +74,113 @@
       position: absolute;
     }
 
-    .heart, .confetti {
-      position: absolute;
-      font-size: 24px;
-      opacity: 0.9;
-    }
-
     .letter, .finalMessage {
       display: none;
+      font-size: 1.5rem;
+      color: #b33a5c;
       margin-top: 15px;
-      font-size: 1.3rem;
-      color: #b33a5c; /* darker pink/maroon */
     }
 
     .finalMessage {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: bold;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 🎶 Soft romantic music -->
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_4c8c8a4f61.mp3" type="audio/mpeg">
-  </audio>
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_4c8c8a4f61.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="card" id="card">
-    <h1 id="greeting">Hey ANURADHA 💖</h1>
+<div class="card" id="card">
+  <h1 id="greeting">Hey ANURADHA 💖</h1>
 
-    <p id="description">
-      On this Propose Day,<br>
-      I just want you to know…<br>
-      my heart chose you long ago 🌹
-    </p>
+  <p id="description">
+    On this Propose Day,<br>
+    I just want you to know…<br>
+    my heart chose you long ago 🌹
+  </p>
 
-    <!-- 💘 Above Yes button -->
-    <div class="valentine">Will you be my Valentine? 💘</div>
-
-    <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
-    <button class="no" id="noBtn">No 🙃</button>
-
-    <div class="letter" id="loveLetter">
-      You are my favorite thought, my happiest smile,<br>
-      and my most beautiful dream 💕<br><br>
-      I promise to stand by you,<br>
-      laugh with you, and love you — always 😘💖
-    </div>
-
-    <div class="finalMessage" id="finalMessage">
-      I LOVE YOU 💖💍
-    </div>
+  <div class="valentine" id="valentineText">
+    Will you be my Valentine? 💘
   </div>
 
-  <script>
-    let yesClickCount = 0;
+  <button class="yes" id="yesBtn" onclick="yesClick()">Yes, forever 💍</button>
+  <button class="no" id="noBtn">No 🙃</button>
 
-    const noBtn = document.getElementById("noBtn");
-    const loveLetter = document.getElementById("loveLetter");
-    const finalMessage = document.getElementById("finalMessage");
-    const card = document.getElementById("card");
-    const valentineText = document.querySelector(".valentine");
-    const description = document.getElementById("description");
-    const yesBtn = document.getElementById("yesBtn");
-    const greeting = document.getElementById("greeting");
+  <div class="letter" id="loveLetter">
+    You are my favorite thought,<br>
+    my happiest smile,<br>
+    and my most beautiful dream 💕<br><br>
+    I promise to love you — always 😘
+  </div>
 
-    // 😈 No button runs away
-    noBtn.addEventListener("mouseover", moveButton);
-    noBtn.addEventListener("touchstart", moveButton);
+  <div class="finalMessage" id="finalMessage">
+    I LOVE YOU 💖💍
+  </div>
+</div>
 
-    function moveButton() {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+<script>
+  let yesCount = 0;
+
+  const greeting = document.getElementById("greeting");
+  const description = document.getElementById("description");
+  const valentine = document.getElementById("valentineText");
+  const loveLetter = document.getElementById("loveLetter");
+  const finalMessage = document.getElementById("finalMessage");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+
+  noBtn.addEventListener("mouseover", moveButton);
+  noBtn.addEventListener("touchstart", moveButton);
+
+  function moveButton() {
+    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.animation = "floatUp 6s linear";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 400);
+
+  function yesClick() {
+    yesCount++;
+
+    if (yesCount === 1) {
+      // HIDE TOP TEXTS COMPLETELY
+      greeting.style.display = "none";
+      description.style.display = "none";
+      valentine.style.display = "none";
+      noBtn.style.display = "none";
+
+      // SHOW LOVE LETTER
+      loveLetter.style.display = "block";
     }
 
-    // 💖 Floating hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 7000);
+    else if (yesCount === 2) {
+      loveLetter.style.display = "none";
+      yesBtn.style.display = "none";
+      finalMessage.style.display = "block";
     }
-
-    // 🎉 Confetti / Kisses
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.className = "confetti";
-      confetti.innerHTML = Math.random() > 0.5 ? "🎉" : "😘";
-      confetti.style.left = Math.random() * 100 + "vw";
-      confetti.style.animationDuration = 3 + Math.random() * 3 + "s";
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 6000);
-    }
-
-    setInterval(createHeart, 350);
-
-    function yesClick() {
-      yesClickCount++;
-
-      if (yesClickCount === 1) {
-        loveLetter.style.display = "block";
-        card.style.background = "rgba(255, 228, 235, 0.95)";
-        document.body.style.background = "linear-gradient(135deg, #800000, #a52a2a)";
-
-        for (let i=0; i<30; i++){
-          setTimeout(createConfetti, i*50);
-        }
-
-      } else if (yesClickCount === 2) {
-        loveLetter.style.display = "none";
-        valentineText.style.display = "none";
-        description.style.display = "none";
-        yesBtn.style.display = "none";
-        noBtn.style.display = "none";
-        greeting.style.display = "none";
-        finalMessage.style.display = "block";
-
-        for (let i=0; i<50; i++){
-          setTimeout(createConfetti, i*50);
-        }
-      }
-    }
-  </script>
+  }
+</script>
 
 </body>
 </html>
+
