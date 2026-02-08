@@ -133,6 +133,25 @@
       font-size: 2rem;
       font-weight: bold;
     }
+
+    /* New: Yours, Amit text style */
+    #signature {
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #b33a5c;
+      font-family: 'Dancing Script', cursive;
+      opacity: 0;
+      animation: fadeInSignature 5s forwards;
+      animation-delay: 1s;
+      user-select: none;
+    }
+
+    @keyframes fadeInSignature {
+      to { opacity: 1; }
+    }
   </style>
 </head>
 
@@ -181,6 +200,8 @@
   <div class="finalMessage" id="finalMessage">
     I LOVE YOU 💖💍
   </div>
+
+  <div id="signature">Yours, Amit</div>
 </div>
 
 <script>
@@ -200,6 +221,11 @@
 
   const noBtn1 = document.getElementById("noBtn");
   const noBtn2 = document.getElementById("noBtn2");
+
+  const signature = document.getElementById("signature");
+
+  // Hide signature initially
+  signature.style.opacity = 0;
 
   // Make both no buttons run away
   noBtn1.addEventListener("mouseover", moveButton);
@@ -232,14 +258,20 @@
       confirmText.style.display = "block";
       secondBtnRow.style.display = "flex";
     } else if (yesCount === 2) {
-      // Hide everything except final message
+      // Hide everything except final message and signature
       loveLetter.style.display = "none";
       confirmText.style.display = "none";
       secondBtnRow.style.display = "none";
       finalMessage.style.display = "block";
+
+      // Fade in signature slowly
+      signature.style.opacity = 0;
+      signature.style.animation = 'fadeInSignature 5s forwards';
+      signature.style.animationDelay = '1s';
     }
   }
 </script>
 
 </body>
 </html>
+
